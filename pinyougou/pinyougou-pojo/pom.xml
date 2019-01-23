@@ -9,6 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.pinyougou</groupId>
     <artifactId>pinyougou-pojo</artifactId>
 
     <dependencies>
@@ -21,5 +22,7 @@
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-solr</artifactId>
         </dependency>
+
+
     </dependencies>
 </project>
