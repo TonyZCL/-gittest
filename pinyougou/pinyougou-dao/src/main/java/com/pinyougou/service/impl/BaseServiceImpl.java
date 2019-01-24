@@ -104,7 +104,7 @@ public class BaseServiceImpl<T> implements BaseService<T> {
      * @param ids
      */
     @Override
-    public void deleteById(Serializable[] ids) {
+    public void deleteByIds(Serializable[] ids) {
         if (ids != null && ids.length>0){
             for (Serializable id : ids){
                 mapper.deleteByPrimaryKey(id);

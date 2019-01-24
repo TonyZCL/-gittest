@@ -63,5 +63,5 @@ public interface BaseService<T> {
      * 批量删除
      * @param ids
      */
-    public void deleteById(Serializable[] ids);
+    public void deleteByIds(Serializable[] ids);
 }
