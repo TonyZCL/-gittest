@@ -15,9 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
-import javax.persistence.Id;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Service(interfaceClass = SpecificationService.class)
 public class SpecificationServiceImpl extends BaseServiceImpl<TbSpecification> implements SpecificationService {
@@ -68,10 +68,10 @@ public class SpecificationServiceImpl extends BaseServiceImpl<TbSpecification> i
         specification.setSpecification(specificationMapper.selectByPrimaryKey(id));
 
         //查询并设置规格选项列表
-        TbSpecificationOption tbSpecificationOption = new TbSpecificationOption();
-        tbSpecificationOption.setId(id);
+        TbSpecificationOption param = new TbSpecificationOption();
+        param.setSpecId(id);
         List<TbSpecificationOption> specificationOptionList
-                = specificationOptionMapper.select(tbSpecificationOption);
+                = specificationOptionMapper.select(param);
 
         specification.setSpecificationOptionList(specificationOptionList);
 
@@ -81,7 +81,9 @@ public class SpecificationServiceImpl extends BaseServiceImpl<TbSpecification> i
     @Override
     public void update(Specification specification) {
         //更新规格
-        specificationMapper.updateByPrimaryKeySelective(specification.getSpecification());
+        //specificationMapper.updateByPrimaryKeySelective(specification.getSpecification());
+        update(specification.getSpecification());
+
         //删除原规格选项
         TbSpecificationOption param = new TbSpecificationOption();
         param.setSpecId(specification.getSpecification().getId());
@@ -107,5 +109,10 @@ public class SpecificationServiceImpl extends BaseServiceImpl<TbSpecification> i
         Example.Criteria criteria = example.createCriteria();
         criteria.andIn("specId", Arrays.asList(ids));
         specificationOptionMapper.deleteByExample(example);
+    }
+
+    @Override
+    public List<Map<String, Object>> selectOptionList() {
+        return specificationMapper.selectOptionList();
     }
 }

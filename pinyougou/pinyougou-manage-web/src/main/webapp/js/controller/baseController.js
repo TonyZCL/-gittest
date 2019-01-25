@@ -28,4 +28,32 @@ app.controller("baseController",function ($scope) {
             $scope.selectedIds.splice(index, 1);
         }
     };
-})
+
+    //将一个 json  数组格式字符串的某个 key 对应的值串起来显示，使用,分隔
+    $scope.jsonToString = function (jsonArrayStr, key) {
+        var str = "";
+        var jsonArray = JSON.parse(jsonArrayStr);
+
+        for (var i = 0;i < jsonArray.length;i++){
+            var jsonObj = jsonArray[i];
+            if (str.length > 0){
+                str += "," + jsonObj[key];
+            }else {
+                str = jsonObj[key];
+            }
+        }
+        return str;
+    };
+
+    /*$scope.jsonToString = function (jsonStr, key) {
+        var str = "";
+        var jsonArray = JSON.parse(jsonStr);
+        for(var i = 0; i < jsonArray.length; i++) {
+            if(i > 0) {
+                str += ",";
+            }
+            str += jsonArray[i][key];
+        }
+        return str;
+    };*/
+});
