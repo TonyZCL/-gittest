@@ -5,6 +5,7 @@ import com.pinyougou.pojo.TbSpecification;
 import com.pinyougou.sellergoods.service.SpecificationService;
 import com.pinyougou.vo.PageResult;
 import com.pinyougou.vo.Result;
+import com.pinyougou.vo.Specification;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class SpecificationController {
     }
 
     @PostMapping("/add")
-    public Result add(@RequestBody TbSpecification specification) {
+    public Result add(@RequestBody Specification specification) {
         try {
             specificationService.add(specification);
             return Result.ok("增加成功");
@@ -39,12 +40,12 @@ public class SpecificationController {
     }
 
     @GetMapping("/findOne")
-    public TbSpecification findOne(Long id) {
+    public Specification findOne(Long id) {
         return specificationService.findOne(id);
     }
 
     @PostMapping("/update")
-    public Result update(@RequestBody TbSpecification specification) {
+    public Result update(@RequestBody Specification specification) {
         try {
             specificationService.update(specification);
             return Result.ok("修改成功");
@@ -57,7 +58,7 @@ public class SpecificationController {
     @GetMapping("/delete")
     public Result delete(Long[] ids) {
         try {
-            specificationService.deleteByIds(ids);
+            specificationService.deleteSpecificationByIds(ids);
             return Result.ok("删除成功");
         } catch (Exception e) {
             e.printStackTrace();
