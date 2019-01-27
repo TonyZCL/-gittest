@@ -31,7 +31,7 @@ app.service("brandService",function ($http) {
 
     //搜索
     this.search = function (searchEntity,page, rows) {
-        return $http.post("../brand/search.do?page="+page+"&rows="+rows,searchEntity)
+        return $http.post("../brand/search.do?page="+page+"&rows="+rows ,searchEntity)
     }
 
 

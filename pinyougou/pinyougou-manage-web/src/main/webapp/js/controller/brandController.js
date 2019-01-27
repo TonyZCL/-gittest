@@ -1,4 +1,4 @@
-app.controller("brandController",function ($scope,brandService) {
+app.controller("brandController",function ($scope,$controller,brandService) {
 
     //继承baseController
     $controller("baseController",{$scope:$scope});

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <!--配合拦截资源-->
+    <http pattern="/login.html" security="none"/>
+    <http pattern="/login_error.html" security="none"/>
+
+    <!--use-expressions的值为false的时候，说明配置拦截的时候不需要编写表达式-->
+    <http use-expressions="false">
+        <intercept-url pattern="/**" access="ROLE_USER"/>
+
+        <form-login login-page="/login.html" always-use-default-target="true"
+                    default-target-url="/index.html" authentication-failure-url="/login_error.html"/>
+
+        <csrf disabled="true"/>
+    </http>
+
+    <!--配置认证管理器-->
+    <authentication-manager>
+        <authentication-provider>
+            <user-service>
+                <!--拥有角色的用户名和密码-->
+                <user name="admin" authorities="ROLE_USER" password="123456"/>
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+
+</beans:beans>
