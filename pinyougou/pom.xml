@@ -14,6 +14,8 @@
         <module>pinyougou-sellergoods</module>
         <module>pinyougou-manage-web</module>
         <module>pinyougou-shop-web</module>
+        <module>pinyougou-content</module>
+        <module>pinyougou-portal-web</module>
     </modules>
     <packaging>pom</packaging>
 
