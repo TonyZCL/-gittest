@@ -23,6 +23,7 @@
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+
 	<servlet>
 		<servlet-name>springmvc</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -30,13 +31,18 @@
 		<!--指定加载的配置文件,通过参数contextConfigLocation加载-->
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:spring/springmvc.xml</param-value>
+			<param-value>classpath:spring/*.xml</param-value>
 		</init-param>
+		<!--  在需要加载监听器等其它组件的时候必须加上如下配置 -->
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>springmvc</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>search.html</welcome-file>
+	</welcome-file-list>
 
 </web-app>
