@@ -51,7 +51,8 @@
     </beans:bean>
 
     <!--配置密码加密对象-->
-    <beans:bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+    <beans:bean id="bCryptPasswordEncoder"
+                class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
     <!--认证管理-->
     <authentication-manager>
         <authentication-provider user-service-ref="userDetailsServiceImpl">
