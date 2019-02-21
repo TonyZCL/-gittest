@@ -82,24 +82,36 @@ public class GoodsServiceImpl extends BaseServiceImpl<TbGoods> implements GoodsS
 
     @Override
     public Goods findGoodsById(Long id) {
+        return findGoodsByIdAndStatus(id,null);
+    }
+
+    @Override
+    public Goods findGoodsByIdAndStatus(Long goodsId, String itemStatus) {
         Goods goods = new Goods();
         //查询商品SPU
-        TbGoods tbGoods = goodsMapper.selectByPrimaryKey(id);
+        TbGoods tbGoods = goodsMapper.selectByPrimaryKey(goodsId);
         goods.setGoods(tbGoods);
 
         //查询商品描述
-        TbGoodsDesc tbGoodsDesc = goodsDescMapper.selectByPrimaryKey(id);
+        TbGoodsDesc tbGoodsDesc = goodsDescMapper.selectByPrimaryKey(goodsId);
         goods.setGoodsDesc(tbGoodsDesc);
 
         //查询商品SKU列表
         //select * from tb_item where goods_id=?
         Example example = new Example(TbItem.class);
-        example.createCriteria().andEqualTo("goodsId",id);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("goodsId",goodsId);
+        if(!StringUtils.isEmpty(itemStatus)){
+            criteria.andEqualTo("status",itemStatus);
+        }
+        //按照是否默认值降序排序，默认值为1，否则为0
+        example.orderBy("isDefault").desc();
         List<TbItem> itemList = itemMapper.selectByExample(example);
         goods.setItemList(itemList);
 
         return goods;
     }
+
 
     @Override
     public void updateGoods(Goods goods) {
@@ -151,6 +163,14 @@ public class GoodsServiceImpl extends BaseServiceImpl<TbGoods> implements GoodsS
         //批量更新商品的删除状态为删除
         goodsMapper.updateByExampleSelective(goods,example);
 
+    }
+
+    @Override
+    public List<TbItem> findItemListByGoodsIdsAndStatus(Long[] ids, String status) {
+        Example example = new Example(TbItem.class);
+        example.createCriteria().andEqualTo("status",status)
+                .andIn("goodsId",Arrays.asList(ids));
+        return itemMapper.selectByExample(example);
     }
 
     private void saveItemList(Goods goods){
