@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>qrious-demo</title>
+    <script src="plugins/qrious.min.js"></script>
+</head>
+<body>
+<img id="qrious">
+<script>
+    var qr = new QRious({
+    element: document.getElementById("qrious"),
+        size:250,
+        level:"H",
+        value:"http://www.itcast.cn"
+    });
+</script>
+</body>
+</html>
